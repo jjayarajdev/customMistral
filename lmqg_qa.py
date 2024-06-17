@@ -65,9 +65,29 @@ clean_text=cleaning_data(clean_text)
 text=document_splitter(clean_text)
 qa_list_of_dicts=qa_dataset_constructor(text)
 
+file_text='taxation_data_updated.pdf'
+text=extract_file(file_text)
+text=document_splitter(text)
+qa_list_of_dicts=qa_dataset_constructor(text)
+
 
 # Write the training data to a JSONL file
 with open("data.jsonl", "w") as train_file:
     for item in qa_list_of_dicts:
         train_file.write(json.dumps(item) + "\n")
 
+# Write the training data to a JSONL file
+with open("data_new.jsonl", "w") as train_file:
+    for item in qa_list_of_dicts:
+        train_file.write(json.dumps(item) + "\n")
+
+def merge_jsonl_with_pandas(file_paths, output_file):
+    dfs = [pd.read_json(path, lines=True) for path in file_paths]
+    merged_df = pd.concat(dfs, ignore_index=True)
+
+    merged_df.to_json(output_file, orient='records', lines=True)
+
+# Example usage
+file_paths = ['data.jsonl', 'data_new.jsonl']
+output_file = 'dataset.jsonl'
+merge_jsonl_with_pandas(file_paths, output_file)
