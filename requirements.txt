@@ -13,9 +13,7 @@ tokenizers
 torch
 peft
 lmqg
-tf-keras
 trl
 bitsandbytes 
-
-
-
+pyspark
+spark-nlp==5.3.2

@@ -10,7 +10,7 @@ from evaluate import evaluator
 import warnings as wr
 wr.filterwarnings('ignore')
 
-train_dataset=load_dataset('json',data_files='dataset.jsonl',split='train')
+train_dataset=load_dataset('json',data_files='training.jsonl',split='train',streaming=True)
 
 eval_dataset = load_dataset('json',data_files='test.jsonl',split='train')
 
